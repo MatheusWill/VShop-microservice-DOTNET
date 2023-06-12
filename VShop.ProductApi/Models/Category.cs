@@ -3,9 +3,9 @@
 public class Category
 {
     public int CategoryId { get; set; }
-    public string? ExternalId { get; set; }
+    public string? ExternalId { get; set; } = Guid.NewGuid().ToString();
     public string? Name { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? UpdatedAt { get; set; }
     public DateTime? DeletedAt { get; set; }
 
