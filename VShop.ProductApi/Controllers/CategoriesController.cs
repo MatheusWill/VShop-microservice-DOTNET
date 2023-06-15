@@ -51,7 +51,7 @@ public class CategoriesController : ControllerBase
         return new CreatedAtRouteResult("GetCategory", new { id = categoryDto.CategoryId }, categoryDto);
     }
 
-    [HttpPut("{ id : int }")]
+    [HttpPut("{id:int}")]
     public async Task<ActionResult> Put (int id, [FromBody] CategoryDTO categoryDto)
     {
         if (id != categoryDto.CategoryId) return BadRequest();
@@ -63,7 +63,7 @@ public class CategoriesController : ControllerBase
         return Ok(categoryDto);
     }
 
-    [HttpDelete("{ id : int }")]
+    [HttpDelete("{id:int}")]
     public async Task<ActionResult<CategoryDTO>> Delete(int id)
     {
         var categoryDto = await _categoryService.GetCategoryById(id);

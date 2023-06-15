@@ -45,7 +45,7 @@ public class ProductsController : ControllerBase
         return new CreatedAtRouteResult("GetProducts", new { id = productDto.CategoryId }, productDto);
     }
 
-    [HttpPut("{ id : int }")]
+    [HttpPut("{id:int}")]
     public async Task<ActionResult> Put(int id, [FromBody] ProductDTO productDto)
     {
         if (id != productDto.CategoryId) return BadRequest("INVALID_ID");
@@ -57,7 +57,7 @@ public class ProductsController : ControllerBase
         return Ok(productDto);
     }
 
-    [HttpDelete("{ id : int }")]
+    [HttpDelete("{id:int}")]
     public async Task<ActionResult<ProductDTO>> Delete(int id)
     {
         var productDto = await _productService.GetProductById(id);
