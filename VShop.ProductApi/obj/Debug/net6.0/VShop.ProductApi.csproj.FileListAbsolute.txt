@@ -52,3 +52,5 @@ D:\PROG\DOTNET\VShop\VShop.ProductApi\obj\Debug\net6.0\refint\VShop.ProductApi.d
 D:\PROG\DOTNET\VShop\VShop.ProductApi\obj\Debug\net6.0\VShop.ProductApi.pdb
 D:\PROG\DOTNET\VShop\VShop.ProductApi\obj\Debug\net6.0\VShop.ProductApi.genruntimeconfig.cache
 D:\PROG\DOTNET\VShop\VShop.ProductApi\obj\Debug\net6.0\ref\VShop.ProductApi.dll
+D:\PROG\DOTNET\VShop\VShop.ProductApi\bin\Debug\net6.0\AutoMapper.dll
+D:\PROG\DOTNET\VShop\VShop.ProductApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
