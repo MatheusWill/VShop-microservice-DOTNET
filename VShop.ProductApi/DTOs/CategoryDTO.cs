@@ -14,5 +14,7 @@ public class CategoryDTO
     [MaxLength(100)]
     public string? Name { get; set; }
 
+    public DateTime CreatedAt { get; set; }
+
     public ICollection<Product>? Products { get; set; }
 }

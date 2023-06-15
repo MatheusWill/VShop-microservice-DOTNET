@@ -28,6 +28,8 @@ public class ProductDTO
 
     public string? ImageURL { get; set; }
 
+    public DateTime CreatedAt { get; set; }
+
     public Category? Category { get; set; }
 
     public int CategoryId { get; set; }
