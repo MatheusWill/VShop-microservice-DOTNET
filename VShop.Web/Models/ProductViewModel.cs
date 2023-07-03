@@ -27,6 +27,6 @@ public class ProductViewModel
 
     public string? CategoryName { get; set; }
 
-    //[Display(Name = "Categorias")]
+    [Display(Name = "Categorias")]
     public int CategoryId { get; set; }
 }
