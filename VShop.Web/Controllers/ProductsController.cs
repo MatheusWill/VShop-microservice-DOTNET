@@ -13,7 +13,7 @@ public class ProductsController : Controller
         _productService = productService;
     }
 
-    public async Task<IActionResult<IEnumerable<ProductViewModel>>> Index()
+    public async Task<ActionResult<IEnumerable<ProductViewModel>>> Index()
     {
         var result = await _productService.GetAllProducts();
 
