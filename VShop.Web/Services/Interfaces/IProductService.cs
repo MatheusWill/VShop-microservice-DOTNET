@@ -8,5 +8,5 @@ public interface IProductService
     Task<ProductViewModel> FindProductById(int id);
     Task<ProductViewModel> CreateProduct(ProductViewModel productViewModel);
     Task<ProductViewModel> UpdateProduct(ProductViewModel productViewModel);
-    Task<ProductViewModel> DeleteProductById(int id);
+    Task<bool> DeleteProductById(int id);
 }

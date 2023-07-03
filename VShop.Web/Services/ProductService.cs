@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Text;
+using System.Text.Json;
 using VShop.Web.Models;
 using VShop.Web.Services.Interfaces;
 
@@ -11,34 +12,101 @@ public class ProductService : IProductService
     private const string apiEndpoint = "/api/products/";
     private ProductViewModel productViewModel;
     private IEnumerable<ProductViewModel> productsViewModel;
+    private const string HTTP_CLIENT_PRODUCT_API = "ProductApi";
 
     public ProductService(IHttpClientFactory httpClient)
     {
         _httpClient = httpClient;
-        _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true};
+        _options = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
     }
 
-    public Task<IEnumerable<ProductViewModel>> GetAllProducts()
+    public async Task<IEnumerable<ProductViewModel>> GetAllProducts()
     {
-        throw new NotImplementedException();
+        var client = _httpClient.CreateClient(HTTP_CLIENT_PRODUCT_API);
+
+        using (var response = await client.GetAsync(apiEndpoint))
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var apiResponse = await response.Content.ReadAsStreamAsync();
+            productsViewModel = await JsonSerializer.DeserializeAsync<IEnumerable<ProductViewModel>>(apiResponse, _options);
+        }
+
+        return productsViewModel;
     }
 
-    public Task<ProductViewModel> FindProductById(int id)
+    public async Task<ProductViewModel> FindProductById(int id)
     {
-        throw new NotImplementedException();
+        var client = _httpClient.CreateClient(HTTP_CLIENT_PRODUCT_API);
+
+        using (var response = await client.GetAsync(apiEndpoint + id))
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var apiResponse = await response.Content.ReadAsStreamAsync();
+            productViewModel = await JsonSerializer.DeserializeAsync<ProductViewModel>(apiResponse, _options);
+        }
+
+        return productViewModel;
     }
-    public Task<ProductViewModel> CreateProduct(ProductViewModel productViewModel)
+    public async Task<ProductViewModel> CreateProduct(ProductViewModel productViewModel)
     {
-        throw new NotImplementedException();
+        var client = _httpClient.CreateClient(HTTP_CLIENT_PRODUCT_API);
+
+        StringContent content = new StringContent(JsonSerializer.Serialize(productViewModel), Encoding.UTF8, "application/json");
+
+        using (var response = await client.PostAsync(apiEndpoint, content))
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var apiResponse = await response.Content.ReadAsStreamAsync();
+            productViewModel = await JsonSerializer.DeserializeAsync<ProductViewModel>(apiResponse, _options);
+        }
+
+        return productViewModel;
     }
 
-    public Task<ProductViewModel> UpdateProduct(ProductViewModel productViewModel)
+    public async Task<ProductViewModel> UpdateProduct(ProductViewModel productViewModel)
     {
-        throw new NotImplementedException();
+        var client = _httpClient.CreateClient(HTTP_CLIENT_PRODUCT_API);
+
+        ProductViewModel productUpdated = new ProductViewModel();
+
+        using (var response = await client.PutAsJsonAsync(apiEndpoint, productViewModel))
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var apiResponse = await response.Content.ReadAsStreamAsync();
+            productUpdated = await JsonSerializer.DeserializeAsync<ProductViewModel>(apiResponse, _options);
+        }
+
+        return productUpdated;
     }
 
-    public Task<ProductViewModel> DeleteProductById(int id)
+    public async Task<bool> DeleteProductById(int id)
     {
-        throw new NotImplementedException();
+        var client = _httpClient.CreateClient(HTTP_CLIENT_PRODUCT_API);
+
+        using (var response = await client.DeleteAsync(apiEndpoint + id))
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }
